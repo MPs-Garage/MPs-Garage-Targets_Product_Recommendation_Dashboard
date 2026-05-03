@@ -1,0 +1,80 @@
+<div class="overlay" *ngIf="selectedProduct" (click)="close()">
+  <div class="details-panel" (click)="$event.stopPropagation()">
+    <div class="header">
+      <h2>{{ selectedProduct.name }}</h2>
+      <button class="close-btn" (click)="close()">✕</button>
+    </div>
+
+    <!--Top Dashboard-->
+    <div class="top-section">
+      <div class="left-section">
+        <div class="donut-chart">
+          <div class="donut" [style.--value]="displayPercent"></div>
+          <div class="donut-center">
+            {{ displayPercent | number: "1.0-0" }}%
+            <span>Postive</span>
+          </div>
+        </div>
+      </div>
+      <div class="right-section">
+        <!--KPI-->
+        <div class="kpi-container">
+          <div class="kpi-card total">
+            <div class="kpi-header">
+              <span class="kpi-icon">📊</span>
+              <span class="kpi-title">Total Reviews</span>
+            </div>
+
+            <div class="kpi-value">
+              {{ displayTotal | number }}
+            </div>
+          </div>
+
+          <div class="kpi-row">
+            <div class="kpi-card positive">
+              <h3>Positive</h3>
+              <p>{{ displayPositive | number }}</p>
+            </div>
+
+            <div class="kpi-card negative">
+              <h3>Negative</h3>
+              <p>{{ displayNegative | number }}</p>
+            </div>
+          </div>
+        </div>
+        <!--Rating Bars-->
+        <div class="rating-bars">
+          <div class="bar-row" *ngFor="let star of [5, 4, 3, 2, 1]">
+            <span class="label">{{ star }}★</span>
+
+            <div class="bar-track">
+              <div
+                class="bar-fill"
+                [style.width.%]="animate ? getRatingPercent(star) : 0"
+                [style.transition-delay.ms]="(5 - star) * 120"
+              >
+                <span>{{ getRatingPercent(star) | number: "1.0-0" }}%</span>
+              </div>
+            </div>
+
+            <span class="value">
+              {{ ratingDistribution[star] }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="reviews-section">
+      <div
+        class="review-card"
+        *ngFor="let r of selectedProduct.reviews"
+        [ngClass]="r.final_sentiment >= 0.75 ? 'positive' : 'negative'"
+      >
+        <div class="review-rating">⭐ {{ r.rating }}</div>
+        <div class="review-text">
+          {{ r.reviews }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

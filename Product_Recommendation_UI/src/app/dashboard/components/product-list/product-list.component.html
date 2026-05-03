@@ -1,0 +1,53 @@
+<div class="product-list">
+  <h1>{{ title }}</h1>
+  <div class="product-items">
+    <div
+      class="product-card"
+      *ngFor="let product of products"
+      [ngClass]="status"
+      (click)="onProductClick(product)"
+    >
+      <!-- LEFT CONTENT -->
+      <div class="card-content">
+        <!--Rating Row-->
+        <div class="rating-row">
+          <div class="stars">
+            <!--Full Stars-->
+            <span
+              *ngFor="
+                let star of [].constructor(getFullStars(product.avgRating))
+              "
+            >
+              &#9733;
+            </span>
+            <!--Empty Stars-->
+            <span
+              *ngFor="
+                let star of [].constructor(getEmptyStars(product.avgRating))
+              "
+            >
+              &#9734;
+            </span>
+          </div>
+          <div class="rating-meta">
+            {{ product.avgRating | number: "1.1-1" }} •
+            {{ product.reviewCount }} reviews
+          </div>
+        </div>
+        <!--Product Name-->
+        <div class="product-name">
+          {{ product.name }}
+        </div>
+        <!--Product Specs-->
+        <div class="product-specs">
+          <span
+            class="spec-chip"
+            *ngFor="let spec of getSpecsList(product.specs)"
+          >
+            {{ spec }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

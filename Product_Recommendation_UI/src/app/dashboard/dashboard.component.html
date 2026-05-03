@@ -1,0 +1,30 @@
+<div class="dashboard">
+  <header class="dashboard_header">
+    <h1>Target Product Recommendations Page</h1>
+  </header>
+  <section class="dashboard_treemap">
+    <h2>Best to Worst recommended Products</h2>
+    <div class="treemap-placeholder">Treemap will go here</div>
+  </section>
+  <section class="dashboard_products">
+    <div class="dashboard-container">
+      <div class="column">
+        <app-product-list
+          [title]="'Recommended Products'"
+          [products]="recommendedProducts"
+          status="recommended"
+        >
+        </app-product-list>
+      </div>
+      <div class="column">
+        <app-product-list
+          [title]="'Not Recommended Products'"
+          [products]="notRecommendedProducts"
+          status="not-recommended"
+        >
+        </app-product-list>
+      </div>
+    </div>
+  </section>
+  <app-product-details></app-product-details>
+</div>
