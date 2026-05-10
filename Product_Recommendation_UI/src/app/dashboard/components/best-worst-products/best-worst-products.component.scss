@@ -1,0 +1,307 @@
+:host {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.best-worst-container {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 8px;
+    width: 100%;
+    min-width: 0;
+}
+
+.section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.section-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0;
+}
+
+.worst-section {
+    padding-top: 12px;
+    border-top: 1px solid var(--border-color);
+}
+
+// ── Podium Container ─────────────────────────────────────
+.podium-container {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 12px;
+    height: 420px;
+    width: 100%;
+    align-items: flex-end;
+    padding: 16px 0;
+    width: 100%;
+    background: linear-gradient(180deg, transparent, var(--bg-secondary) 50%);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+
+    &.animating {
+        animation: podiumPulse 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+}
+
+.podium-position {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    flex: 1 1 0;
+    min-width: 0;
+
+    &.first {
+        flex: 1.2;
+        order: 2;
+        .podium-card {
+            box-sizing: border-box;
+            min-width: 0;
+            height: 340px;
+            animation-delay: 0.1s;
+        }
+    }
+
+    &.second {
+        order: 1;
+        .podium-card {
+            height: 240px;
+            animation-delay: 0s;
+        }
+    }
+
+    &.third {
+        order: 3;
+        .podium-card {
+            height: 160px;
+            animation-delay: 0.2s;
+        }
+    }
+}
+
+.podium-rank {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    height: 20px;
+}
+
+.podium-card {
+    width: 100%;
+    padding: 14px 10px;
+    border-radius: 12px;
+    background: var(--kpi-positive-bg);
+    box-shadow: 0 4px 16px var(--shadow-color);
+    transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    text-align: center;
+    animation: podiumIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+    position: relative;
+    overflow: hidden;
+
+    &:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 28px var(--shadow-hover);
+
+        .podium-name {
+            color: var(--accent-red);
+        }
+    }
+}
+
+.podium-medal {
+    font-size: 42px;
+    line-height: 1;
+    text-shadow: 0 2px 4px var(--shadow-color);
+}
+
+.podium-name {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    transition: color 0.2s ease;
+}
+
+.podium-reviews {
+    font-size: 12px;
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+.podium-sentiment {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+// ── Podium Base (Visual Stand) ──────────────────────────
+.podium-base {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    background: linear-gradient(180deg, var(--border-color) 0%, var(--bg-secondary) 100%);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0 12px;
+    box-shadow: inset 0 2px 4px var(--shadow-color),
+                0 6px 12px var(--shadow-color);
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, var(--accent-red), transparent);
+        border-radius: 6px 6px 0 0;
+    }
+
+    &::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80%;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--accent-red), transparent);
+        border-radius: 6px;
+    }
+}
+
+.base-label {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.2px;
+    position: relative;
+    z-index: 1;
+}
+
+.medal-gold { color: var(--medal-gold); font-weight: 800;}
+.medal-silver { color: var(--medal-silver); font-weight: 800; }
+.medal-bronze { color: var(--medal-bronze); font-weight: 800;}
+
+// ── Animations ─────────────────────────────────────────
+@keyframes podiumIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes podiumPulse {
+    0% {
+        opacity: 0.8;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+// ── Worst Sellers Section ────────────────────────────────
+.worst-sellers-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.worst-seller-card {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 20px 18px;
+    border-radius: 10px;
+    background: var(--bg-secondary);
+    border-left: 4px solid var(--not-recommended);
+    box-shadow: 0 2px 8px var(--shadow-color);
+    transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+
+    &:hover {
+        background: var(--bg-hover);
+        transform: translateX(6px);
+        box-shadow: 0 6px 16px var(--shadow-hover);
+    }
+}
+
+.worst-seller-rank {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--accent-red);
+    min-width: 40px;
+    text-align: center;
+}
+
+.worst-seller-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.worst-seller-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.worst-seller-meta {
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+.worst-seller-count {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent-red);
+    min-width: 50px;
+    text-align: right;
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}

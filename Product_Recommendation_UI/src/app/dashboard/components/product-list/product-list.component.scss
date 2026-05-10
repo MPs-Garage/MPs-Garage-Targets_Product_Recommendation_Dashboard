@@ -1,113 +1,160 @@
-.product-list{
+.product-list {
     display: flex;
     flex-direction: column;
     height: 100%;
+    min-height: 0;
 }
 
-.product-items{
+.product-list h1 {
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-muted);
+    margin: 0 0 8px 0;
+    flex-shrink: 0;
+}
+
+.product-items {
     flex: 1;
     overflow-y: auto;
-    margin-top: 8px;
+    min-height: 0;
+    scrollbar-width: none;
+    padding-right: 4px;
 }
 
-.product-card{
+.product-card {
     position: relative;
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    min-height: 120px;
-    height: 120px;
-    border: 1px solid #e0e0e0;
+    min-height: 130px;
+    height: 130px;
+    border: 1px solid var(--border-color);
     border-radius: 16px;
-    padding: 16px;
-    margin-bottom: 10px;
-    background-color: #fff;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.24);
+    padding: 10px 14px;
+    margin-bottom: 8px;
+    background-color: var(--bg-card);
+    box-shadow: 0 2px 10px var(--shadow-color);
     transition: all 0.2s ease;
-}
-
-.product-card::after{
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 4px;
-}
-
-.product-card:hover{
-    box-shadow: 0 12px 24px rgba(0, 0, 0,0.12);
-    transform: translateY(-6px) scale(1.02);
-    overflow-x: hidden;
-}
-
-.product-name{
-    font-weight: 600;
-    font-size: 32px;
-    color: #222;
-}
-
-.product-specs{
-    font-size: 16.5px;
-    color: #777;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
+    cursor: pointer;
     overflow: hidden;
 }
 
-.card-content{
+.product-card:hover {
+    box-shadow: 0 12px 24px var(--shadow-hover);
+    transform: translateY(-4px) scale(1.01);
+}
+
+.product-card.recommended {
+    border-left: 10px solid var(--recommended);
+}
+
+.product-card.not-recommended {
+    border-left: 10px solid var(--not-recommended);
+}
+
+.product-card.recommended:hover {
+    box-shadow: 0 8px 20px rgba(46, 204, 113, 0.15);
+}
+
+.product-card.not-recommended:hover {
+    box-shadow: 0 8px 20px rgba(231, 76, 60, 0.15);
+}
+
+// ── Card Content ─────────────────────────────────────────────
+.card-content {
     display: flex;
     flex-direction: column;
     gap: 4px;
-    max-width: 85%;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
 }
 
-.rating-row{
+.rating-row {
     display: flex;
     align-items: center;
-    gap: 8px
+    gap: 8px;
+    flex-shrink: 0;
 }
 
-.stars{
+.stars {
     color: #f5a623;
-    font-size: 25px;
+    font-size: 18px;
 }
 
-.rating-meta{
+.rating-meta {
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+.product-name {
+    font-weight: 700;
     font-size: 20px;
-    color: #666;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex-shrink: 0;
 }
 
 .product-specs {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     gap: 6px;
-    margin-top: 6px;
+    overflow: hidden;
+    flex-shrink: 0;
 }
 
-.spec-chip{
-    background-color: #f1f3f5;
-    color: #333;
-    font-size: 16px;
-    padding: 4px;
+.spec-chip {
+    background-color: var(--bg-secondary);
+    color: var(--text-secondary);
+    font-size: 15px;
+    padding: 3px 8px;
     border-radius: 12px;
     white-space: nowrap;
+    flex-shrink: 0;
 }
 
-.spec-chip:hover{
-    background-color: #e0e0e0;
+.spec-chip:hover {
+    background-color: var(--bg-hover);
 }
 
-.product-card.product-card.recommended{
-    border-left: 10px solid #2ecc71;
-}
-.product-card.product-card.not-recommended{
-    border-left: 10px solid #e74c3c;
-}
-
-.product-card.recommended:hover {
-  box-shadow: 0 4px 12px rgba(46, 204, 113, 0.2);
+// ── Sentiment Bar ─────────────────────────────────────────────
+.sentiment-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: auto;   // pushes bar to bottom of card
+    flex-shrink: 0;
 }
 
-.product-card.not-recommended:hover {
-  box-shadow: 0 4px 12px rgba(231, 76, 60, 0.2);
+.sentiment-bar-track {
+    flex: 1;
+    height: 6px;
+    background: var(--bg-secondary);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.sentiment-bar-fill {
+    height: 100%;
+    border-radius: 10px;
+    transition: width 0.6s ease;
+
+    &.recommended {
+        background: linear-gradient(to right, #a8edbc, #2ecc71);
+    }
+
+    &.not-recommended {
+        background: linear-gradient(to right, #f5c6c2, #e74c3c);
+    }
+}
+
+.sentiment-label {
+    font-size: 12px;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    flex-shrink: 0;
 }

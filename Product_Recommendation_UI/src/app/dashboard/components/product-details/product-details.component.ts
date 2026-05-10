@@ -1,18 +1,22 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { ProductStateService } from "../product-state.service";
-import { flush } from "@angular/core/testing";
-
+import { ProductStateService } from "../../service/product-state.service";
+import {ScrollingModule} from "@angular/cdk/scrolling"
 @Component({
     selector: 'app-product-details',
     standalone: true,
-    imports: [CommonModule],
+    imports: [CommonModule, ScrollingModule],
     templateUrl: './product-details.component.html',
     styleUrl: './product-details.component.scss'
 })
 
 export class ProductDetailsComponent implements OnInit{
+
+    @Input() allReviews: any[] = [];
+
     selectedProduct: any;
+    productReviews: any[] = [];
+
     positiveCount = 0;
     negativeCount = 0;
     ratingDistribution: any = {};
@@ -26,22 +30,33 @@ export class ProductDetailsComponent implements OnInit{
     
     computeMetrics(product: any) {
         if (!product) return;
-        
-        this.positiveCount = 0;
-        this.negativeCount = 0;
-        this.ratingDistribution = {
-            1: 0, 2: 0, 3: 0, 4: 0, 5: 0
-        };
-        product.reviews.forEach((r: any) => {
-            if (r.final_sentiment >= 0.75) {
-                this.positiveCount++;
-            } else {
-                this.negativeCount++;
-            }
-            const rating = Math.round(r.rating);
-            if (this.ratingDistribution[rating] !== undefined) {
-                this.ratingDistribution[rating]++;
-            }
+        this.animate = false;
+        this.productReviews = this.allReviews.filter(
+            r => r.product_name === product.product_name &&
+                 r.company === product.company
+        );
+
+        setTimeout(() => {
+            this.positiveCount = 0;
+            this.negativeCount = 0;
+            this.ratingDistribution = {
+                1: 0, 2: 0, 3: 0, 4: 0, 5: 0
+            };
+            this.productReviews.forEach((r: any) => {
+                if (r.sentiment === 'Positive') {
+                    this.positiveCount++;
+                } else {
+                    this.negativeCount++;
+                }
+                const rating = Math.round(r.rating);
+                if (this.ratingDistribution[rating] !== undefined) {
+                    this.ratingDistribution[rating]++;
+                }
+            });
+            this.animate = false;
+            this.animateDonut();
+            this.animateKPIs();
+            setTimeout(() => { this.animate = true; }, 200);
         });
     }
     get positivePercent(): number {
@@ -49,11 +64,12 @@ export class ProductDetailsComponent implements OnInit{
         return total ? (this.positiveCount / total) * 100 : 0;
     }
     getRatingPercent(star: number): number {
-        const total = this.selectedProduct?.reviewCount || 1;
-        const value = this.ratingDistribution[star] || 0;
-        return (value / total) * 100;
+        const total = this.productReviews.length || 1;
+        return ((this.ratingDistribution[star] || 0) / total) * 100;
     }
+
     close(){
+        this.productState.setSelectedProduct(null);
         this.selectedProduct = null;
     }
     animateDonut(){
@@ -74,9 +90,10 @@ export class ProductDetailsComponent implements OnInit{
     animateKPIs(){
         const duration = 2000;
         const start = performance.now();
-        const totalTarget = this.selectedProduct?.reviewCount || 0;
+        const totalTarget = this.productReviews.length;
         const positiveTarget = this.positiveCount;
         const negativeTarget = this.negativeCount;
+        
         const animate = (time: number) => {
             const progress = Math.min((time - start) / duration, 1);
             const eased = 1 - Math.pow(1 - progress, 3);
@@ -90,15 +107,13 @@ export class ProductDetailsComponent implements OnInit{
         requestAnimationFrame(animate);
     }
     ngOnInit(): void {
-        this.productState.selectedProduct$.subscribe(product =>{
+        this.productState.selectedProduct$.subscribe(product => {
             this.selectedProduct = product;
+            if (!product) {
+                this.productReviews = [];
+                return;
+            }
             this.computeMetrics(product);
-            this.animate = false;
-            this.animateDonut();
-            this.animateKPIs();
-            setTimeout(()=>{
-                this.animate = true;
-            },200)
         });
     }    
 }

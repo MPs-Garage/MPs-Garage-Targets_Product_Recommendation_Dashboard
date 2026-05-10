@@ -1,30 +1,172 @@
 <div class="dashboard">
-  <header class="dashboard_header">
-    <h1>Target Product Recommendations Page</h1>
-  </header>
-  <section class="dashboard_treemap">
-    <h2>Best to Worst recommended Products</h2>
-    <div class="treemap-placeholder">Treemap will go here</div>
-  </section>
-  <section class="dashboard_products">
-    <div class="dashboard-container">
-      <div class="column">
-        <app-product-list
-          [title]="'Recommended Products'"
-          [products]="recommendedProducts"
-          status="recommended"
+  <div *ngIf="loading" class="state-message">⏳ Loading data...</div>
+  <div *ngIf="error" class="state-message error">❌ {{ error }}</div>
+
+  <div class="dashboard_body" *ngIf="!loading && !error">
+    <!-- LEFT — Charts (60%) -->
+    <div class="charts-panel">
+      <header class="dashboard_header">
+        <div class="header-brand">
+          <span class="brand-logo">🎯</span>
+          <div class="brand-text">
+            <span class="brand-title">Target</span>
+            <span class="brand-subtitle">Product Intelligence</span>
+          </div>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="spotlight-bar" [class.has-query]="searchQuery">
+          <span class="spotlight-icon">🔍</span>
+          <input
+            #searchInput
+            type="text"
+            placeholder="Search products, brands, specs..."
+            [value]="searchQuery"
+            (input)="onSearch($event)"
+            (keydown.escape)="searchQuery = ''"
+          />
+          <button
+            class="clear-btn"
+            *ngIf="searchQuery"
+            (click)="searchQuery = ''"
+          >
+            ✕
+          </button>
+
+          <!-- Dropdown Results -->
+          <div class="search-results" *ngIf="searchQuery">
+            <div class="results-group" *ngIf="filteredRecommended.length > 0">
+              <div class="results-label">✅ Recommended</div>
+              <div
+                class="result-item"
+                *ngFor="let p of filteredRecommended | slice: 0 : 4"
+                (click)="onResultClick(p)"
+              >
+                <span class="result-name">{{ p.product_name }}</span>
+                <span class="result-meta"
+                  >{{ p.company }} • &#9733;
+                  {{ p.avg_rating | number: "1.1-1" }} • 💬
+                  {{ p.review_count | number }}</span
+                >
+              </div>
+            </div>
+            <div
+              class="results-group"
+              *ngIf="filteredNotRecommended.length > 0"
+            >
+              <div class="results-label">❌ Not Recommended</div>
+              <div
+                class="result-item"
+                *ngFor="let p of filteredNotRecommended | slice: 0 : 4"
+                (click)="onResultClick(p)"
+              >
+                <span class="result-name">{{ p.product_name }}</span>
+                <span class="result-meta"
+                  >{{ p.company }} • &#9733;
+                  {{ p.avg_rating | number: "1.1-1" }} • 💬
+                  {{ p.review_count | number }}</span
+                >
+              </div>
+            </div>
+            <div
+              class="no-results"
+              *ngIf="
+                filteredRecommended.length === 0 &&
+                filteredNotRecommended.length === 0
+              "
+            >
+              No products found for "{{ searchQuery }}"
+            </div>
+          </div>
+        </div>
+        <button
+          class="theme-toggle"
+          (click)="theme.toggle()"
+          [title]="
+            theme.isDark ? 'Switch to light mode' : 'Switch to dark mode'
+          "
         >
-        </app-product-list>
+          {{ theme.isDark ? "☀️" : "🌙" }}
+        </button>
+      </header>
+
+      <!-- Tab Headers -->
+      <div class="chart-tabs">
+        <button
+          class="tab-btn"
+          [class.active]="activeChart === 'best/worst'"
+          (click)="activeChart = 'best/worst'"
+        >
+          🫧 Best/Worst
+        </button>
+        <button
+          class="tab-btn"
+          [class.active]="activeChart === 'treemap'"
+          (click)="activeChart = 'treemap'"
+        >
+          📊 Treemap
+        </button>
+        <button
+          class="tab-btn"
+          [class.active]="activeChart === 'bubble'"
+          (click)="activeChart = 'bubble'"
+        >
+          🫧 Bubble Chart
+        </button>
       </div>
-      <div class="column">
-        <app-product-list
-          [title]="'Not Recommended Products'"
-          [products]="notRecommendedProducts"
-          status="not-recommended"
-        >
-        </app-product-list>
+
+      <!-- Chart Area -->
+      <div class="chart-area">
+        <div class="chart-pane" [class.visible]="activeChart === 'treemap'">
+          <app-treemap
+            [summary]="summary"
+            [recommendedProducts]="recommendedProducts"
+          >
+          </app-treemap>
+        </div>
+        <div class="chart-pane" [class.visible]="activeChart === 'bubble'">
+          <app-bubble-chart
+            [summary]="summary"
+            [recommendedProducts]="recommendedProducts"
+          >
+          </app-bubble-chart>
+        </div>
+        <div class="chart-pane" [class.visible]="activeChart === 'best/worst'">
+          <app-best-worst-products
+            [summary]="summary"
+          ></app-best-worst-products>
+        </div>
       </div>
     </div>
-  </section>
-  <app-product-details></app-product-details>
+
+    <!-- RIGHT — Slides + Lists (40%) -->
+    <div class="right-panel">
+      <!-- Slides (top half) -->
+      <div class="slides-section">
+        <app-slides [summary]="summary"></app-slides>
+      </div>
+
+      <!-- Product Lists (bottom half) -->
+      <div class="lists-section">
+        <div class="column">
+          <app-product-list
+            [title]="'Recommended Products'"
+            [products]="filteredRecommended"
+            status="recommended"
+          >
+          </app-product-list>
+        </div>
+        <div class="column">
+          <app-product-list
+            [title]="'Not Recommended Products'"
+            [products]="filteredNotRecommended"
+            status="not-recommended"
+          >
+          </app-product-list>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-product-details [allReviews]="allReviews"></app-product-details>
 </div>

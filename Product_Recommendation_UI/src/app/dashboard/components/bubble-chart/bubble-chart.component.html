@@ -1,0 +1,105 @@
+<div class="bubble-container">
+  <svg [attr.width]="svgW" [attr.height]="svgH" *ngIf="svgW > 0">
+    <!-- Grid lines -->
+    <line
+      *ngFor="let line of gridLines"
+      [attr.x1]="line.x1"
+      [attr.y1]="line.y1"
+      [attr.x2]="line.x2"
+      [attr.y2]="line.y2"
+      class="grid-line"
+    />
+
+    <!-- X Axis line -->
+    <line
+      [attr.x1]="MARGIN.left"
+      [attr.y1]="MARGIN.top + chartH"
+      [attr.x2]="MARGIN.left + chartW"
+      [attr.y2]="MARGIN.top + chartH"
+      class="axis-line"
+    />
+
+    <!-- Y Axis line -->
+    <line
+      [attr.x1]="MARGIN.left"
+      [attr.y1]="MARGIN.top"
+      [attr.x2]="MARGIN.left"
+      [attr.y2]="MARGIN.top + chartH"
+      class="axis-line"
+    />
+
+    <!-- X Axis labels -->
+    <g *ngFor="let label of xLabels">
+      <line
+        [attr.x1]="label.x"
+        [attr.y1]="MARGIN.top + chartH"
+        [attr.x2]="label.x"
+        [attr.y2]="MARGIN.top + chartH + 5"
+        class="axis-line"
+      />
+      <text
+        [attr.x]="label.x"
+        [attr.y]="MARGIN.top + chartH + 18"
+        class="axis-label x-label"
+      >
+        {{ label.value >= 1000 ? label.value / 1000 + "k" : label.value }}
+      </text>
+    </g>
+
+    <!-- Y Axis labels -->
+    <g *ngFor="let label of yLabels">
+      <text
+        [attr.x]="MARGIN.left - 8"
+        [attr.y]="label.y + 4"
+        class="axis-label y-label"
+      >
+        {{ label.value }}%
+      </text>
+    </g>
+
+    <!-- Axis titles -->
+    <text
+      [attr.x]="MARGIN.left + chartW / 2"
+      [attr.y]="svgH - 4"
+      class="axis-title"
+    >
+      Review Count
+    </text>
+
+    <text
+      [attr.x]="-(MARGIN.top + chartH / 2)"
+      [attr.y]="14"
+      class="axis-title"
+      transform="rotate(-90)"
+    >
+      Positive Rate
+    </text>
+
+    <!-- Bubbles -->
+    <g
+      *ngFor="let bubble of bubbles; let i = index"
+      class="bubble-group"
+      [attr.style]="'animation-delay:' + i * 40 + 'ms'"
+      (click)="onBubbleClick(bubble)"
+    >
+      <circle
+        [attr.cx]="bubble.cx"
+        [attr.cy]="bubble.cy"
+        [attr.r]="bubble.r"
+        [attr.fill]="bubble.color"
+        [attr.title]="bubble.tooltip"
+        class="bubble"
+        [class.recommended]="bubble.isRecommended"
+        [class.not-recommended]="!bubble.isRecommended"
+      />
+      <text
+        *ngIf="bubble.labelVisible"
+        [attr.x]="bubble.cx"
+        [attr.y]="bubble.cy + 4"
+        class="bubble-label"
+      >
+        {{ bubble.product.product_name | slice: 0 : 8 }}
+      </text>
+    </g>
+  </svg>
+</div>

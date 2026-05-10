@@ -1,7 +1,7 @@
 <div class="overlay" *ngIf="selectedProduct" (click)="close()">
   <div class="details-panel" (click)="$event.stopPropagation()">
     <div class="header">
-      <h2>{{ selectedProduct.name }}</h2>
+      <h2>{{ selectedProduct.product_name }}</h2>
       <button class="close-btn" (click)="close()">✕</button>
     </div>
 
@@ -64,17 +64,19 @@
         </div>
       </div>
     </div>
-    <div class="reviews-section">
+    <cdk-virtual-scroll-viewport itemSize="51" class="reviews-section">
       <div
         class="review-card"
-        *ngFor="let r of selectedProduct.reviews"
-        [ngClass]="r.final_sentiment >= 0.75 ? 'positive' : 'negative'"
+        *cdkVirtualFor="let r of productReviews"
+        [ngClass]="r.sentiment === 'Positive' ? 'positive' : 'negative'"
       >
-        <div class="review-rating">⭐ {{ r.rating }}</div>
+        <div class="review-rating">
+          <strong>{{ r.title }}</strong> {{ r.rating }} &#9733;
+        </div>
         <div class="review-text">
           {{ r.reviews }}
         </div>
       </div>
-    </div>
+    </cdk-virtual-scroll-viewport>
   </div>
 </div>

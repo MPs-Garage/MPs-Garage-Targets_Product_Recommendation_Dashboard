@@ -15,7 +15,7 @@
             <!--Full Stars-->
             <span
               *ngFor="
-                let star of [].constructor(getFullStars(product.avgRating))
+                let star of [].constructor(getFullStars(product.avg_rating))
               "
             >
               &#9733;
@@ -23,20 +23,20 @@
             <!--Empty Stars-->
             <span
               *ngFor="
-                let star of [].constructor(getEmptyStars(product.avgRating))
+                let star of [].constructor(getEmptyStars(product.avg_rating))
               "
             >
               &#9734;
             </span>
           </div>
           <div class="rating-meta">
-            {{ product.avgRating | number: "1.1-1" }} •
-            {{ product.reviewCount }} reviews
+            {{ product.avg_rating | number: "1.1-1" }} •
+            {{ product.review_count }} reviews
           </div>
         </div>
         <!--Product Name-->
         <div class="product-name">
-          {{ product.name }}
+          {{ product.product_name }}
         </div>
         <!--Product Specs-->
         <div class="product-specs">
@@ -45,6 +45,18 @@
             *ngFor="let spec of getSpecsList(product.specs)"
           >
             {{ spec }}
+          </span>
+        </div>
+        <div class="sentiment-row">
+          <div class="sentiment-bar-track">
+            <div
+              class="sentiment-bar-fill"
+              [ngClass]="status"
+              [style.width.%]="product.positive_rate * 100"
+            ></div>
+          </div>
+          <span class="sentiment-label">
+            😊 {{ product.positive_rate * 100 | number: "1.0-0" }}% positive
           </span>
         </div>
       </div>

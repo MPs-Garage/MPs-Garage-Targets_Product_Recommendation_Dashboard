@@ -1,55 +1,336 @@
-.dashboard{
+.dashboard {
     display: flex;
     flex-direction: column;
     height: 100vh;
     padding: 16px;
     box-sizing: border-box;
+    overflow: hidden;
+    background: var(--bg-primary);
+    transition: background 0.3s ease;
+}
+
+.dashboard_header {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     gap: 16px;
+    margin-bottom: 8px;
+    padding: 8px 0;
+    min-height: 64px;
 }
 
-.dashboard_header{
+.header-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
     flex-shrink: 0;
 }
 
-.dashboard_treemap{
+.brand-logo {
+    font-size: 36px;
+    line-height: 1;
+}
+
+.brand-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+}
+
+.brand-title {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--accent-red);
+    letter-spacing: -0.5px;
+}
+
+.brand-subtitle {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-muted);
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+}
+
+// ── Spotlight Search ──────────────────────────────────────────
+.spotlight-bar {
+    flex: 1;
+    max-width: 480px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--search-bg);
+    border: 1.5px solid var(--border-color);
+    border-radius: 14px;
+    padding: 10px 14px;
+    transition: max-width 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+                border-color 0.2s ease,
+                box-shadow 0.2s ease,
+                background 0.3s ease,
+                padding 0.3s ease;
+
+    &:focus-within, &.has-query {
+        max-width: 800px;
+        background: var(--search-focus-bg);
+        border-color: var(--accent-red);
+        box-shadow: 0 4px 20px rgba(204, 0, 0, 0.12);
+        padding: 13px 18px;
+    }
+
+    input {
+        flex: 1;
+        border: none;
+        background: transparent;
+        font-size: 14px;
+        color: var(--text-primary);
+        outline: none;
+        transition: font-size 0.3s ease;
+
+        &::placeholder { color: var(--text-muted); }
+    }
+
+    &:focus-within input {
+        font-size: 16px;
+    }
+}
+
+.spotlight-icon {
+    font-size: 16px;
+    flex-shrink: 0;
+    transition: font-size 0.3s ease;
+}
+
+.spotlight-bar:focus-within .spotlight-icon {
+    font-size: 20px;
+}
+
+.clear-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 13px;
+    padding: 0;
+    flex-shrink: 0;
+    transition: color 0.2s ease;
+
+    &:hover { color: var(--accent-red); }
+}
+
+// ── Search Dropdown ───────────────────────────────────────────
+.search-results {
+    position: absolute;
+    top: calc(100% + 18px);
+    left: 0;
+    right: 0;
+    background: var(--bg-card);
+    border-radius: 14px;
+    box-shadow: 0 8px 32px var(--shadow-color);
+    border: 1px solid var(--border-color);
+    z-index: 1000;
+    overflow: hidden;
+    max-height: 400px;
+    overflow-y: auto;
+    transition: background 0.3s ease;
+}
+
+.results-group {
+    padding: 8px 0;
+
+    & + .results-group {
+        border-top: 1px solid var(--border-color);
+    }
+}
+
+.results-label {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 4px 16px 6px;
+}
+
+.result-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: background 0.15s ease;
+
+    &:hover { background: var(--bg-hover); }
+}
+
+.result-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.result-meta {
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+.no-results {
+    padding: 20px 16px;
+    text-align: center;
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+// ── Dashboard Body ────────────────────────────────────────────
+.dashboard_body {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    overflow: hidden;
+    min-height: 0;
+}
+
+// ── LEFT — Charts ─────────────────────────────────────────────
+.charts-panel {
+    width: 60%;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    min-height: 0;
+    gap: 8px;
+}
+
+.chart-tabs {
+    display: flex;
+    gap: 8px;
     flex-shrink: 0;
 }
 
-.treemap-placeholder{
-    height: 200px;
-    border: 2px solid #000;
+.tab-btn {
+    padding: 6px 16px;
+    border: none;
+    border-radius: 20px;
+    background: var(--tab-bg);
+    color: var(--tab-color);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+        background: var(--bg-hover);
+        color: var(--text-primary);
+    }
+
+    &.active {
+        background: var(--tab-active-bg);
+        color: var(--tab-active-color);
+    }
+}
+
+.chart-area {
+    flex: 1;
+    min-height: 0;
+    position: relative;
+}
+
+.chart-pane {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+
+    &.visible {
+        opacity: 1;
+        pointer-events: all;
+    }
+}
+
+.chart-placeholder {
+    flex: 1;
+    border: 2px dashed var(--chart-placeholder-border);
+    border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
+    color: var(--chart-placeholder-text);
+    font-size: 14px;
+    background: var(--chart-placeholder-bg);
 }
 
-.dashboard_products{
+// ── RIGHT — Slides + Lists ────────────────────────────────────
+.right-panel {
+    width: 40%;
     display: flex;
-    gap: 16px;
-    flex: 1;
+    flex-direction: column;
+    gap: 12px;
+    overflow: hidden;
+    min-height: 0;
+}
+
+.slides-section {
+    flex: 0 0 38%;
+    min-height: 0;
+    border-radius: 16px;
     overflow: hidden;
 }
 
-.dashboard-container {
-  display: flex;
-  gap: 16px;
-  width: 100%;
+.lists-section {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    overflow: hidden;
+    min-height: 0;
 }
 
 .column {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  max-height: 80vh;
-  overflow-y: auto;
-  scrollbar-width: none;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    scroll-behavior: smooth;
+    min-width: 0;
 }
 
-.column::after{
-    content: "";
-    position: sticky;
-    bottom: 0;
-    height: 20px;
-    background: linear-gradient(to bottom, transparent, white);
+// ── States ────────────────────────────────────────────────────
+.state-message {
+    padding: 12px 16px;
+    border-radius: 8px;
+    background: var(--bg-secondary);
+    font-size: 14px;
+    color: var(--text-secondary);
+    transition: background 0.3s ease;
+
+    &.error {
+        background: #fff0f0;
+        color: #c0392b;
+    }
+}
+
+// ── Theme Toggle ──────────────────────────────────────────────
+.theme-toggle {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1.5px solid var(--border-color);
+    background: var(--bg-secondary);
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+
+    &:hover {
+        background: var(--bg-hover);
+        transform: scale(1.1);
+    }
 }

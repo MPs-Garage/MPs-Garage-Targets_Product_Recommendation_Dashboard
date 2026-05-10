@@ -1,0 +1,258 @@
+[
+    {
+        "company":"Unknown Brand",
+        "product_name":"Coconut Water Tea (pack of 12)",
+        "review_count":1,
+        "avg_rating":5.0,
+        "recommend_rate":1.0,
+        "positive_rate":1.0
+    },
+    {
+        "company":"XYZ brand",
+        "product_name":"HD Tablet with Alexa",
+        "review_count":20,
+        "avg_rating":4.8,
+        "recommend_rate":1.0,
+        "positive_rate":1.0
+    },
+    {
+        "company":"brand name",
+        "product_name":"Dx Leather Cover",
+        "review_count":9,
+        "avg_rating":4.778,
+        "recommend_rate":1.0,
+        "positive_rate":1.0
+    },
+    {
+        "company":"XYZ brand",
+        "product_name":"Protective Case for HD",
+        "review_count":1,
+        "avg_rating":4.0,
+        "recommend_rate":1.0,
+        "positive_rate":1.0
+    },
+    {
+        "company":"electronics brand",
+        "product_name":"TV",
+        "review_count":3,
+        "avg_rating":4.333,
+        "recommend_rate":1.0,
+        "positive_rate":1.0
+    },
+    {
+        "company":"electronics brand",
+        "product_name":"TV Stick",
+        "review_count":2,
+        "avg_rating":5.0,
+        "recommend_rate":1.0,
+        "positive_rate":1.0
+    },
+    {
+        "company":"electronics brand",
+        "product_name":"TV with Alexa Voice Remote",
+        "review_count":4,
+        "avg_rating":5.0,
+        "recommend_rate":1.0,
+        "positive_rate":1.0
+    },
+    {
+        "company":"brand name",
+        "product_name":"Paperwhite",
+        "review_count":9,
+        "avg_rating":4.889,
+        "recommend_rate":1.0,
+        "positive_rate":1.0
+    },
+    {
+        "company":"retail brand",
+        "product_name":"Hd Standing Protective Case",
+        "review_count":7,
+        "avg_rating":4.857,
+        "recommend_rate":1.0,
+        "positive_rate":1.0
+    },
+    {
+        "company":"retail brand",
+        "product_name":"PowerFast USB Charger and Power Adapter for Tablets eReaders",
+        "review_count":1,
+        "avg_rating":5.0,
+        "recommend_rate":1.0,
+        "positive_rate":1.0
+    },
+    {
+        "company":"retail brand",
+        "product_name":"USB to Micro-USB Cable",
+        "review_count":4,
+        "avg_rating":4.25,
+        "recommend_rate":1.0,
+        "positive_rate":1.0
+    },
+    {
+        "company":"retail brand",
+        "product_name":"Touch Leather Case",
+        "review_count":3,
+        "avg_rating":5.0,
+        "recommend_rate":1.0,
+        "positive_rate":1.0
+    },
+    {
+        "company":"retail brand",
+        "product_name":"Hd",
+        "review_count":1,
+        "avg_rating":5.0,
+        "recommend_rate":1.0,
+        "positive_rate":1.0
+    },
+    {
+        "company":"retail brand",
+        "product_name":"Kids Edition Tablet Kid-Proof Case",
+        "review_count":6,
+        "avg_rating":4.833,
+        "recommend_rate":1.0,
+        "positive_rate":1.0
+    },
+    {
+        "company":"retail brand",
+        "product_name":"Echo and TV Power Adapter",
+        "review_count":8,
+        "avg_rating":4.875,
+        "recommend_rate":1.0,
+        "positive_rate":1.0
+    },
+    {
+        "company":"retail brand",
+        "product_name":"Hd Tablet B018szt3bk",
+        "review_count":135,
+        "avg_rating":4.741,
+        "recommend_rate":0.985,
+        "positive_rate":0.985
+    },
+    {
+        "company":"retail brand",
+        "product_name":"Paperwhite",
+        "review_count":3176,
+        "avg_rating":4.755,
+        "recommend_rate":0.98,
+        "positive_rate":0.981
+    },
+    {
+        "company":"brand name",
+        "product_name":"Voyage E-reader with",
+        "review_count":580,
+        "avg_rating":4.743,
+        "recommend_rate":0.979,
+        "positive_rate":0.978
+    },
+    {
+        "company":"retail brand",
+        "product_name":"Tap Portable and Speaker",
+        "review_count":318,
+        "avg_rating":4.73,
+        "recommend_rate":0.975,
+        "positive_rate":0.975
+    },
+    {
+        "company":"brand name",
+        "product_name":"PowerFast USB Charger and Power Adapter for Tablets eReaders",
+        "review_count":36,
+        "avg_rating":4.694,
+        "recommend_rate":1.0,
+        "positive_rate":0.972
+    },
+    {
+        "company":"retail brand",
+        "product_name":"Hd Tablet - Aluminum",
+        "review_count":128,
+        "avg_rating":4.773,
+        "recommend_rate":0.969,
+        "positive_rate":0.969
+    },
+    {
+        "company":"brand name",
+        "product_name":"Paperwhite E-reader",
+        "review_count":30,
+        "avg_rating":4.533,
+        "recommend_rate":0.967,
+        "positive_rate":0.967
+    },
+    {
+        "company":"Unknown Brand",
+        "product_name":"Home",
+        "review_count":2112,
+        "avg_rating":4.691,
+        "recommend_rate":0.964,
+        "positive_rate":0.967
+    },
+    {
+        "company":"retail brand",
+        "product_name":"Tv",
+        "review_count":2528,
+        "avg_rating":4.65,
+        "recommend_rate":0.959,
+        "positive_rate":0.964
+    },
+    {
+        "company":"electronics brand",
+        "product_name":"Tablet A",
+        "review_count":2960,
+        "avg_rating":4.586,
+        "recommend_rate":0.962,
+        "positive_rate":0.962
+    },
+    {
+        "company":"electronics brand",
+        "product_name":"IPad Tablet",
+        "review_count":1030,
+        "avg_rating":4.55,
+        "recommend_rate":0.961,
+        "positive_rate":0.958
+    },
+    {
+        "company":"XYZ brand",
+        "product_name":"Tablet",
+        "review_count":11295,
+        "avg_rating":4.458,
+        "recommend_rate":0.951,
+        "positive_rate":0.953
+    },
+    {
+        "company":"retail brand",
+        "product_name":"USB Charger and Power Adapter for Tablets eReaders",
+        "review_count":19,
+        "avg_rating":4.526,
+        "recommend_rate":0.842,
+        "positive_rate":0.947
+    },
+    {
+        "company":"XYZ brand",
+        "product_name":"Kids Edition Tablet Kid-Proof Case",
+        "review_count":1679,
+        "avg_rating":4.513,
+        "recommend_rate":0.936,
+        "positive_rate":0.939
+    },
+    {
+        "company":"brand name",
+        "product_name":"Oasis E-reader with Leather Charging Cover",
+        "review_count":73,
+        "avg_rating":4.548,
+        "recommend_rate":0.932,
+        "positive_rate":0.932
+    },
+    {
+        "company":"retail brand",
+        "product_name":"Voyage",
+        "review_count":26,
+        "avg_rating":4.654,
+        "recommend_rate":0.885,
+        "positive_rate":0.885
+    },
+    {
+        "company":"retail brand",
+        "product_name":"Hd Powerfast Adapter Charger Micro Usb Angle Cable",
+        "review_count":7,
+        "avg_rating":4.286,
+        "recommend_rate":0.714,
+        "positive_rate":0.857
+    }
+]

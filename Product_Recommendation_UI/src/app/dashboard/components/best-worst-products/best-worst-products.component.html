@@ -1,0 +1,83 @@
+<div class="best-worst-container">
+  <div class="section">
+    <h3 class="section-title">🏆 Top 3 Best Sellers</h3>
+
+    <div class="podium-container" [class.animating]="podiumAnimating">
+      <!-- 2nd Place -->
+      <div class="podium-position second" *ngIf="bestSellers[1]">
+        <div class="podium-rank">2nd</div>
+        <div class="podium-card" (click)="onProductClick(bestSellers[0])">
+          <div class="podium-medal">{{ getMedalEmoji(2) }}</div>
+          <div class="podium-name">{{ bestSellers[1].product_name }}</div>
+          <div class="podium-reviews">
+            {{ formatNumber(bestSellers[1].review_count) }} reviews
+          </div>
+          <div class="podium-sentiment">
+            {{ bestSellers[1].positive_rate * 100 | number: "1.0-0" }}% positive
+          </div>
+        </div>
+      </div>
+
+      <!-- 1st Place (center, tallest) -->
+      <div class="podium-position first" *ngIf="bestSellers[0]">
+        <div class="podium-rank">1st</div>
+        <div class="podium-card" (click)="onProductClick(bestSellers[0])">
+          <div class="podium-medal">{{ getMedalEmoji(1) }}</div>
+          <div class="podium-name">{{ bestSellers[0].product_name }}</div>
+          <div class="podium-reviews">
+            {{ formatNumber(bestSellers[0].review_count) }} reviews
+          </div>
+          <div class="podium-sentiment">
+            {{ bestSellers[0].positive_rate * 100 | number: "1.0-0" }}% positive
+          </div>
+        </div>
+      </div>
+
+      <!-- 3rd Place -->
+      <div class="podium-position third" *ngIf="bestSellers[2]">
+        <div class="podium-rank">3rd</div>
+        <div class="podium-card" (click)="onProductClick(bestSellers[0])">
+          <div class="podium-medal">{{ getMedalEmoji(3) }}</div>
+          <div class="podium-name">{{ bestSellers[2].product_name }}</div>
+          <div class="podium-reviews">
+            {{ formatNumber(bestSellers[2].review_count) }} reviews
+          </div>
+          <div class="podium-sentiment">
+            {{ bestSellers[2].positive_rate * 100 | number: "1.0-0" }}% positive
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="podium-base">
+      <div class="base-label medal-silver">🥈 SILVER</div>
+      <div class="base-label medal-gold">🏆 GOLD</div>
+      <div class="base-label medal-bronze">🥉 BRONZE</div>
+    </div>
+  </div>
+
+  <!-- Worst Sellers Section -->
+  <div class="section worst-section">
+    <h3 class="section-title">⚠️ Needs Attention (Bottom 3)</h3>
+
+    <div class="worst-sellers-container">
+      <div
+        class="worst-seller-card"
+        *ngFor="let seller of worstSellers; let i = index"
+        [style.animation-delay.ms]="i * 100"
+        (click)="onProductClick(seller)"
+      >
+        <div class="worst-seller-rank">{{ seller.rank }}</div>
+        <div class="worst-seller-info">
+          <div class="worst-seller-name">{{ seller.product_name }}</div>
+          <div class="worst-seller-meta">
+            {{ seller.positive_rate * 100 | number: "1.0-0" }}% positive
+          </div>
+        </div>
+        <div class="worst-seller-count">
+          {{ formatNumber(seller.review_count) }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

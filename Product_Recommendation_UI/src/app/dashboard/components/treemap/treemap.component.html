@@ -1,0 +1,21 @@
+<div class="treemap-container">
+  <div
+    class="treemap-block"
+    *ngFor="let block of blocks; let i = index"
+    [style.left.px]="block.x"
+    [style.top.px]="block.y"
+    [style.width.px]="block.w - 4"
+    [style.height.px]="block.h - 4"
+    [style.background-color]="block.color"
+    [title]="block.tooltip"
+    [style.animation-delay.ms]="i * 25"
+    (click)="onBlockClick(block)"
+  >
+    <div class="block-label" *ngIf="block.labelVisible">
+      <span class="block-name">{{ block.product.product_name }}</span>
+      <span class="block-sentiment"
+        >{{ block.product.positive_rate * 100 | number: "1.0-0" }}%</span
+      >
+    </div>
+  </div>
+</div>

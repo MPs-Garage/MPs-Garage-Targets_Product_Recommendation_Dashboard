@@ -1,0 +1,136 @@
+body {
+    padding: 0;
+    margin: 0;
+}
+
+:root {
+    // ── Light mode ──────────────────────────────────────────
+    --bg-primary:       #ffffff;
+    --bg-secondary:     #f5f5f5;
+    --bg-card:          #ffffff;
+    --bg-hover:         #f9f9f9;
+
+    --text-primary:     #1a1a2e;
+    --text-secondary:   #666666;
+    --text-muted:       #aaaaaa;
+
+    --border-color:     #e0e0e0;
+    --shadow-color:     rgba(0, 0, 0, 0.08);
+    --shadow-hover:     rgba(0, 0, 0, 0.12);
+
+    --accent-red:       #CC0000;
+    --recommended:      #2ecc71;
+    --not-recommended:  #e74c3c;
+
+    --tab-bg:           #f0f0f0;
+    --tab-color:        #888888;
+    --tab-active-bg:    #1a1a2e;
+    --tab-active-color: #ffffff;
+
+    --search-bg:        #f5f5f5;
+    --search-focus-bg:  #ffffff;
+
+    --slide-bg:         #1a1a2e;
+    --slide-text:       rgba(255,255,255,0.72);
+    --slide-controls:   rgba(0,0,0,0.2);
+
+    --chart-placeholder-bg:    #fafafa;
+    --chart-placeholder-border: #dddddd;
+    --chart-placeholder-text:  #aaaaaa;
+
+    --grid-line:        #e8e8e8;
+    --axis-color:       #cccccc;
+    --axis-text:        #888888;
+
+    --kpi-total-bg:     linear-gradient(135deg, #eef2ff, #e0e7ff);
+    --kpi-positive-bg:  linear-gradient(135deg, #e8f8f1, #d4f1e4);
+    --kpi-negative-bg:  linear-gradient(135deg, #fdecea, #fad5cf);
+
+    --medal-gold:   #B8860B;
+    --medal-silver: #707070;
+    --medal-bronze: #8B4513;
+}
+
+// ── Dark mode ──────────────────────────────────────────────────
+[data-theme="dark"] {
+    --bg-primary:       #2b2b2b;
+    --bg-secondary:     #333333;
+    --bg-card:          #3a3a3a;
+    --bg-hover:         #404040;
+
+    --text-primary:     #f0f0f0;
+    --text-secondary:   #aaaaaa;
+    --text-muted:       #777777;
+
+    --border-color:     #4a4a4a;
+    --shadow-color:     rgba(0, 0, 0, 0.3);
+    --shadow-hover:     rgba(0, 0, 0, 0.4);
+
+    --accent-red:       #ff4444;
+    --recommended:      #2ecc71;
+    --not-recommended:  #e74c3c;
+
+    --tab-bg:           #3a3a3a;
+    --tab-color:        #aaaaaa;
+    --tab-active-bg:    #f0f0f0;
+    --tab-active-color: #1a1a2e;
+
+    --search-bg:        #3a3a3a;
+    --search-focus-bg:  #444444;
+
+    --slide-bg:         #222222;
+    --slide-text:       rgba(255,255,255,0.8);
+    --slide-controls:   rgba(0,0,0,0.3);
+
+    --chart-placeholder-bg:    #333333;
+    --chart-placeholder-border: #4a4a4a;
+    --chart-placeholder-text:  #666666;
+
+    --grid-line:        #3a3a3a;
+    --axis-color:       #4a4a4a;
+    --axis-text:        #777777;
+
+    --medal-gold:   #FFD700;
+    --medal-silver: #E0E0E0;
+    --medal-bronze: #CD7F32;
+}
+
+// System preference — applies when no manual override is set
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+        --bg-primary:       #2b2b2b;
+        --bg-secondary:     #333333;
+        --bg-card:          #3a3a3a;
+        --bg-hover:         #404040;
+        --text-primary:     #f0f0f0;
+        --text-secondary:   #aaaaaa;
+        --text-muted:       #777777;
+        --border-color:     #4a4a4a;
+        --shadow-color:     rgba(0, 0, 0, 0.3);
+        --shadow-hover:     rgba(0, 0, 0, 0.4);
+        --accent-red:       #ff4444;
+        --tab-bg:           #3a3a3a;
+        --tab-color:        #aaaaaa;
+        --tab-active-bg:    #f0f0f0;
+        --tab-active-color: #1a1a2e;
+        --search-bg:        #3a3a3a;
+        --search-focus-bg:  #444444;
+        --slide-bg:         #222222;
+        --slide-text:       rgba(255,255,255,0.8);
+        --slide-controls:   rgba(0,0,0,0.3);
+        --chart-placeholder-bg:    #333333;
+        --chart-placeholder-border: #4a4a4a;
+        --chart-placeholder-text:  #666666;
+        --grid-line:        #3a3a3a;
+        --axis-color:       #4a4a4a;
+        --axis-text:        #777777;
+
+        --kpi-total-bg:     linear-gradient(135deg, #2d3561, #3a3f7d);
+        --kpi-positive-bg:  linear-gradient(135deg, #1e4d3e, #2a6b52);
+        --kpi-negative-bg:  linear-gradient(135deg, #5a2e2e, #7a3e38);
+
+        --kpi-total-bg:     linear-gradient(135deg, #2d3561, #3a3f7d);
+        --kpi-positive-bg:  linear-gradient(135deg, #1e4d3e, #2a6b52);
+        --kpi-negative-bg:  linear-gradient(135deg, #5a2e2e, #7a3e38);
+    }
+}
